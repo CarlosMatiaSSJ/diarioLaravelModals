@@ -1,10 +1,21 @@
 @extends('plantilla')
 
 @section('contenido')
+
+
+@include('registrar')
+
 @if (session()->has('actualizacion'))
         {!! "<script>Swal.fire(
                 'Correcto!',
                 'Se ha editado el recuerdo!',
+                'success'
+              )</script>" !!}
+    @endif
+    @if (session()->has('confirmación'))
+        {!! "<script>Swal.fire(
+                'Correcto!',
+                'Se ha Registrado el recuerdo!',
                 'success'
               )</script>" !!}
     @endif
@@ -17,6 +28,14 @@
     @endif
 
     <h1 class="display-1 mt-4 mb-4 text-center">Recuerdos </h1>
+    <div class="container col-md-6 mb-5 mt-5 d-grid gap-2">
+      <!-- Agregar -->
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+        Agregar Recuerdo <i class="bi bi-file-plus"></i>
+      </button>
+    </div>
+          
+          
 
     @foreach ($consultaRecuerdos as $consulta)
         
@@ -37,9 +56,21 @@
 
             
             <div class="card-footer text-muted">
-                <a href="{{route('recuerdo.edit',$consulta->idRecuerdos)}}" class="btn btn-primary">Editar Recuerdo</a>
-                <a href="{{route('recuerdo.show',$consulta->idRecuerdos)}}" class="btn btn-primary">Eliminar Recuerdo</a>
+
+                <!-- Editar -->
+                
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalActualizar{{$consulta->idRecuerdos}}">
+                  Actualizar Recuerdo  <i class="bi bi-pen-fill"></i>
+                </button>
+
+
+                <!-- Eliminar -->
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar{{$consulta->idRecuerdos}}">
+                  Eliminar Recuerdo <i class="bi bi-trash3"></i>
+                </button>
             </div>
+            @include('editar')
+            @include('eliminar')
           </div>
               
        

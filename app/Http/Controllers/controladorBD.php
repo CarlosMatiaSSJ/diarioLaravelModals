@@ -46,7 +46,7 @@ class controladorBD extends Controller
             "updated_at" => Carbon::now()
         ]);
 
-        return redirect('recuerdo/create')->with('confirmación','confirmarRecuerdo');
+        return redirect('recuerdo')->with('confirmación','confirmarRecuerdo');
     }
 
     /**
